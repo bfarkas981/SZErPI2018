@@ -1,4 +1,4 @@
-def SendMessageToTwitter(_message):
+def SendMessage(_message):
     print(_message)
 
 
