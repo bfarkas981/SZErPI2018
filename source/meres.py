@@ -3,9 +3,13 @@ import Adafruit_DHT
 #import pip
 #pip.main(['install','mysql-connector-python-rf'])
 import mysql.connector as mariadb
+import Logic.TwitterLogic as tw
+import Logic.DatabaseLogic as db
+
 
 print("Start app")
-station='Balazs'
+tw.SendMessage("Elindult az alkalmazás!")
+station='station1'
 humidity=-1
 temperature=-1
 
@@ -21,21 +25,7 @@ except:
     print('Error2')
 
 
-try:
-    print("Save to database...")
-    mariadb_connection = mariadb.connect(user='user1',
-                                     database='db1')
-    cursor = mariadb_connection.cursor()
-    #insert information
-    try:
-        cursor.execute("INSERT INTO mensuration (sender_id,mensuration_TS,temperature,humidity) VALUES (%s,now(),%s,%s)", (station,temperature,humidity))
-    except mariadb.Error as error:
-        print("Error: {}".format(error))
-    mariadb_connection.commit()
-    mariadb_connection.close()
-    print(">>> OK!")
-except mariadb.Error as error:
-    print("Error: {}".format(error))
+db.SaveToDatabase(station,temperature,humidity)
 
 
 
