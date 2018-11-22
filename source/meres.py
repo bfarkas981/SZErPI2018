@@ -5,6 +5,7 @@ import Adafruit_DHT
 import mysql.connector as mariadb
 import Logic.TwitterLogic as tw
 import Logic.DatabaseLogic as db
+import Logic.DisplayLogic as di
 
 
 print("Start app")
@@ -26,6 +27,8 @@ except:
 
 
 db.SaveToDatabase(station,temperature,humidity)
+di.ShowText('Homer.: {0:0.1f}*C'.format(temperature),'Parat.: {0:0.1f}%'.format(humidity))
+
 
 
 
